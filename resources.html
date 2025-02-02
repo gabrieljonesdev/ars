@@ -1,0 +1,15 @@
+---
+layout: default
+title: resources
+---
+
+<h1>Risorse Digitali</h1>
+<ul>
+  {% for risorsa in site.data.risorse %}
+    <li>
+      <h2>{{ risorsa.titolo }}</h2>
+      <p>{{ risorsa.descrizione }}</p>
+      <a href="{{ risorsa.link }}" target="_blank">Vai alla risorsa</a>
+    </li>
+  {% endfor %}
+</ul>
