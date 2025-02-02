@@ -2,7 +2,8 @@
           <ul>
           {% for risorsa in site.data.risorse %}
           <li>
-          <a href="{{ risorsa.link }}" target="_blank">{{ risorsa.titolo }}</a>
+          <a href="{{ risorsa.link }}" target="_blank">
+          <h4>{{ risorsa.titolo }}</h4></a>
           </li>
           {% endfor %}
           </ul>
