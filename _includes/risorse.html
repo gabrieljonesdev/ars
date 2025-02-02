@@ -1,0 +1,12 @@
+<div class="container">
+<h4>Risorse Digitali</h4>
+<ul>
+  {% for risorsa in site.data.risorse %}
+    <li>
+      <h2>{{ risorsa.titolo }}</h2>
+      <p>{{ risorsa.descrizione }}</p>
+      <a href="{{ risorsa.link }}" target="_blank">Vai alla risorsa</a>
+    </li>
+  {% endfor %}
+</ul>
+</div>
