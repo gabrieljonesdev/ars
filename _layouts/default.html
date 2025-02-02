@@ -7,12 +7,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <title>{{ site.title }}{% if page.title and page.title != "" %} &mdash; {{ page.title }}{% endif %}</title>
-<script>
-    if (!isAuthenticated) {
-  window.location.href = '/';
-  return;
-}
-  </script>
+
+    document.addEventListener("DOMContentLoaded", async () => {
+  const auth0 = await createAuth0Client({
+    domain: 'dev-f3c6xbgc2ncptfvi.us.auth0.com',
+    client_id: 'o1mzuH9F1cz7PgLuq9q8Qkg4EZ7xcoiF'
+  });
+
+  const isAuthenticated = await auth0.isAuthenticated();
+
+  // Mostra o nascondi il pulsante di login in base allo stato di autenticazione
+  document.getElementById('login-btn').style.display = isAuthenticated ? 'none' : 'inline';
+  document.getElementById('logout-btn').style.display = isAuthenticated ? 'inline' : 'none';
+
+  // Se l'utente è autenticato, mostra il suo nome e profilo
+  if (isAuthenticated) {
+    const user = await auth0.getUser();
+    document.getElementById('user-name').innerText = user.name;
+    document.getElementById('user-profile').style.display = 'block';
+  }
+
+  // Funzione di login
+  window.login = async () => {
+    await auth0.loginWithRedirect({ redirect_uri: window.location.origin });
+  };
+
+  // Funzione di logout
+  window.logout = () => {
+    auth0.logout({ returnTo: window.location.origin });
+  };
+
+  // Non fare il redirect se siamo già sulla homepage
+  if (!isAuthenticated && window.location.pathname !== '/') {
+    window.location.href = '/'; // Reindirizza se non autenticato e non siamo sulla homepage
+  }
+});
+
     {% if site.description %}<meta name="description" content="{{ site.description }}">{% endif %}  
 
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | absolute_url }}?{{ site.time | date: '%s%N' }}">
