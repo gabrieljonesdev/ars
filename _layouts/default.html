@@ -25,13 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({"notice_banner_type":"interstitial","consent_type":"express","palette":"dark","language":"it","page_load_consent_levels":["strictly-necessary"],"notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,"page_refresh_confirmation_buttons":false,"website_name":"Culture Section | Gabriel Jones"});
 });
 </script>
-<!-- Below is the link that users can use to open Preferences Center to change their preferences. Do not modify the ID parameter. Place it where appropriate, style it as needed. -->
-<script>
-  if (!isAuthenticated) {
-  window.location.href = '/'; // Reindirizza se non autenticato
-  return;
-}
-</script>
+
   </head>
   <body>
 
@@ -113,11 +107,6 @@ cookieconsent.run({"notice_banner_type":"interstitial","consent_type":"express",
       window.logout = () => {
         auth0.logout({ returnTo: window.location.origin });
       };
-
-      if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
-        await auth0.handleRedirectCallback();
-        window.history.replaceState({}, document.title, "/");
-      }
     });
   </script>
   </body>
