@@ -1,8 +1,9 @@
+---
 title: La Notte Stellata
-author: Gabriel Jones
+author: Enea
 category: arte
 layout: post
-
+---
 La Notte Stellata
 by Vincent van Gogh
 
