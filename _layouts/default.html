@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | absolute_url }}?{{ site.time | date: '%s%N' }}">
 
+      <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
     <link rel="apple-touch-icon" href="https://gjd.altervista.org/wp-content/uploads/2024/09/cropped-Black_Beige_Circle_Y2K_Illustrative_Class_Logo-removebg-preview.png">
 
     {%- if jekyll.environment == 'production' and site.google_analytics -%}
@@ -56,6 +57,7 @@ cookieconsent.run({"notice_banner_type":"interstitial","consent_type":"express",
     {% unless site.hide_search %}
       {% include search.html %}
     {% endunless %}
+      <button id="login-btn" onclick="login()">Login</button>
 
     {% include menu.html %}
 
@@ -68,6 +70,60 @@ cookieconsent.run({"notice_banner_type":"interstitial","consent_type":"express",
     {% endunless %}
 
 <a href="#" id="open_preferences_center">Update cookies preferences</a>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const auth0 = await createAuth0Client({
+      domain: 'dev-f3c6xbgc2ncptfvi.us.auth0.com',
+      client_id: 'o1mzuH9F1cz7PgLuq9q8Qkg4EZ7xcoiF'
+    });
 
+    const isAuthenticated = await auth0.isAuthenticated();
+
+    if (!isAuthenticated) {
+      window.location.href = '/'; // Reindirizza se non autenticato
+      return;
+    }
+
+    const user = await auth0.getUser();
+    document.getElementById('user-name').innerText = user.name;
+    document.getElementById('user-profile').style.display = 'block';
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const auth0 = await createAuth0Client({
+      domain: 'dev-f3c6xbgc2ncptfvi.us.auth0.com', // Dominio Auth0 configurato
+      client_id: 'o1mzuH9F1cz7PgLuq9q8Qkg4EZ7xcoiF'   // Client ID Auth0 configurato
+    });
+
+    const isAuthenticated = await auth0.isAuthenticated();
+
+    if (isAuthenticated) {
+      document.getElementById('profile-link').style.display = 'inline';
+      document.getElementById('logout-btn').style.display = 'inline';
+    } else {
+      document.getElementById('login-btn').style.display = 'inline';
+    }
+
+    window.login = async () => {
+      await auth0.loginWithRedirect({
+        redirect_uri: window.location.origin
+      });
+    };
+
+    window.logout = () => {
+      auth0.logout({
+        returnTo: window.location.origin
+      });
+    };
+
+    const query = window.location.search;
+    if (query.includes('code=') && query.includes('state=')) {
+      await auth0.handleRedirectCallback();
+      window.history.replaceState({}, document.title, "/");
+    }
+  });
+</script>
   </body>
 </html>
