@@ -90,40 +90,30 @@ cookieconsent.run({"notice_banner_type":"interstitial","consent_type":"express",
   });
 </script>
 
-<script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    const auth0 = await createAuth0Client({
-      domain: 'dev-f3c6xbgc2ncptfvi.us.auth0.com', // Dominio Auth0 configurato
-      client_id: 'o1mzuH9F1cz7PgLuq9q8Qkg4EZ7xcoiF'   // Client ID Auth0 configurato
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const auth0 = await createAuth0Client({
+        domain: 'dev-f3c6xbgc2ncptfvi.us.auth0.com',
+        client_id: 'o1mzuH9F1cz7PgLuq9q8Qkg4EZ7xcoiF'
+      });
+
+      const isAuthenticated = await auth0.isAuthenticated();
+      document.getElementById('login-btn').style.display = isAuthenticated ? 'none' : 'inline';
+
+      window.login = async () => {
+        await auth0.loginWithRedirect({ redirect_uri: window.location.origin });
+      };
+
+      window.logout = () => {
+        auth0.logout({ returnTo: window.location.origin });
+      };
+
+      if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+        await auth0.handleRedirectCallback();
+        window.history.replaceState({}, document.title, "/");
+      }
     });
-
-    const isAuthenticated = await auth0.isAuthenticated();
-
-    if (isAuthenticated) {
-      document.getElementById('profile-link').style.display = 'inline';
-      document.getElementById('logout-btn').style.display = 'inline';
-    } else {
-      document.getElementById('login-btn').style.display = 'inline';
-    }
-
-    window.login = async () => {
-      await auth0.loginWithRedirect({
-        redirect_uri: window.location.origin
-      });
-    };
-
-    window.logout = () => {
-      auth0.logout({
-        returnTo: window.location.origin
-      });
-    };
-
-    const query = window.location.search;
-    if (query.includes('code=') && query.includes('state=')) {
-      await auth0.handleRedirectCallback();
-      window.history.replaceState({}, document.title, "/");
-    }
-  });
-</script>
+  </script>
   </body>
 </html>
