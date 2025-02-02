@@ -15,3 +15,4 @@ Il paesaggio sottostante, con i suoi cipressi e una piccola città silenziosa, c
 
 La Notte Stellata non è solo una delle opere più riconoscibili di van Gogh, ma rappresenta anche un passo significativo nella sua evoluzione artistica, una fusione di bellezza visiva e angoscia psicologica che ha lasciato un segno indelebile nella storia dell'arte.
 
+[File ](https://culture.gabrieljones.it/assets/ARS-LNSVG.pdf)
