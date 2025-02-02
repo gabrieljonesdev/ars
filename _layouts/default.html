@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <title>{{ site.title }}{% if page.title and page.title != "" %} &mdash; {{ page.title }}{% endif %}</title>
-
+<script>
     document.addEventListener("DOMContentLoaded", async () => {
   const auth0 = await createAuth0Client({
     domain: 'dev-f3c6xbgc2ncptfvi.us.auth0.com',
@@ -42,7 +42,7 @@
     window.location.href = '/'; // Reindirizza se non autenticato e non siamo sulla homepage
   }
 });
-
+</script>
     {% if site.description %}<meta name="description" content="{{ site.description }}">{% endif %}  
 
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | absolute_url }}?{{ site.time | date: '%s%N' }}">
