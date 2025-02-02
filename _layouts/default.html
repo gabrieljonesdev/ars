@@ -48,6 +48,7 @@ cookieconsent.run({"notice_banner_type":"interstitial","consent_type":"express",
     {% endif %}
 
     {{ content }}
+        {% include risorse.html %}
 
     {% unless site.hide_search %}
       {% include search.html %}
