@@ -1,5 +1,5 @@
 ---
-title: Il Magico Mondo del Cinema: Dallo Schermo alla Magia
+title: Il Magico Mondo del Cinema Dallo Schermo alla Magia
 author: Enea
 category: Cinema
 layout: post
