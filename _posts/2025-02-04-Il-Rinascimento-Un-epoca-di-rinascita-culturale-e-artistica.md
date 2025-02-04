@@ -1,5 +1,5 @@
 ---
-title: Il Rinascimento: Un'epoca di rinascita culturale e artistica
+title: Il Rinascimento Un'epoca di rinascita culturale e artistica
 author: Enea
 category: Arte
 layout: post
